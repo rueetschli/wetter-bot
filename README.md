@@ -53,7 +53,7 @@ Das Skript ruft Wetterdaten von **MeteoSwiss** und **Open-Meteo** ab, verarbeite
 
 ## Konfiguration
 
-Öffnen Sie die Datei `wetter_skript.php` und konfigurieren Sie die folgenden Parameter am Anfang der Datei:
+Öffnen Sie die Datei `wetter.php` und konfigurieren Sie die folgenden Parameter am Anfang der Datei:
 
 ```php
 <?php
@@ -77,25 +77,44 @@ $twilio_whatsapp_number = 'whatsapp:+1234567890';
 // WhatsApp-Nummer des Empfängers (z.B. 'whatsapp:+0987654321')
 $child_whatsapp_number = 'whatsapp:+0987654321';
 
+// Postleitzahl für MeteoSwiss (Die 00, welche MeteoSwiss nutzt wird automatisch ergänzt)
+$postal_code = '4522';
+
+// Koordinaten (Breitengrad und Längengrad) für Open-Meteo
+$latitude = '47.2305';
+$longitude = '7.5295';
+
 // Prompt für OpenAI
 $prompt = <<<EOT
 [Ihr benutzerdefinierter Prompt hier]
 EOT;
 
-//PLZ - Passe auf Zeile 57 die Postleitzahl an. Füge deiner Postleitzahl noch die 00 hinzu. Für Rüttenen wäre das 452200
-$weather_url = 'https://app-prod-ws.meteoswiss-app.ch/v1/plzDetail?plz=452200';
 ```
 
 **Hinweis:** Ersetzen Sie die Platzhalter durch Ihre tatsächlichen Zugangsdaten.
 
 ## Verwendung
 
+### Über einen Cronjob
+
+Um automatisch jeden Morgen um 06.30 von Montag bis Freitag eine Nachricht zu verschicken gehst du wie folgt vor:
+Öffne das Crontab-Bearbeitungsprogramm, indem du folgenden Befehl im Terminal ausführst:
+```
+crontab -e
+```
+Wenn du zum ersten Mal einen Cronjob einrichtest, wirst du möglicherweise gefragt, welchen Editor du verwenden möchtest. Wähle einfach deinen bevorzugten Texteditor (z.B. nano oder vim).
+Füge am Ende der Datei die folgende Zeile hinzu:
+```
+30 6 * * 1-5 /usr/bin/curl -s "http://deinedomain.com/pfad/zu/deinem/wetter.php?passwort=DeinPasswort" >/dev/null 2>&1
+```
+Oder nutze einen Cronjob dienst deiner Wahl. Z.b. [Cronjob.de](https://www.cronjob.de/)
+
 ### Über den Webbrowser
 
 Rufen Sie das Skript über Ihren Webbrowser auf und übergeben Sie das Passwort als URL-Parameter:
 
 ```
-http://Ihre-Domain.tld/wetter_skript.php?passwort=IhrSicheresPasswort
+http://Ihre-Domain.tld/wetter.php?passwort=IhrSicheresPasswort
 ```
 
 ### Über die Kommandozeile
@@ -103,7 +122,7 @@ http://Ihre-Domain.tld/wetter_skript.php?passwort=IhrSicheresPasswort
 Führen Sie das Skript von der Kommandozeile aus:
 
 ```bash
-php wetter_skript.php passwort=IhrSicheresPasswort
+php wetter.php passwort=IhrSicheresPasswort
 ```
 
 **Hinweis:** Stellen Sie sicher, dass das Skript im Webserver-Verzeichnis liegt, wenn Sie es über den Browser aufrufen möchten.
@@ -129,6 +148,8 @@ Für Fragen oder Unterstützung kontaktieren Sie bitte [Ihr Name](mailto:ihre-em
 - [OpenAI](https://openai.com/) für die API
 - [Twilio](https://www.twilio.com/) für die WhatsApp API
 
+---
+![thumbnail_Bildschirmfoto 2024-09-16 um 14 02 06](https://github.com/user-attachments/assets/af1c0486-8314-4e7e-a1ce-2ef1ce0111cb)
 ---
 
 # Weather Forecast Script for Luca
@@ -208,6 +229,13 @@ $twilio_whatsapp_number = 'whatsapp:+1234567890';
 
 // Recipient's WhatsApp Number (e.g., 'whatsapp:+0987654321')
 $child_whatsapp_number = 'whatsapp:+0987654321';
+
+// Postleitzahl for MeteoSwiss 
+$postal_code = '4522';
+
+// Koordinaten (Breitengrad und Längengrad) for Open-Meteo
+$latitude = '47.2305';
+$longitude = '7.5295';
 
 // Prompt for OpenAI
 $prompt = <<<EOT
