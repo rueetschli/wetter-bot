@@ -43,7 +43,7 @@ Das Skript ruft Wetterdaten von **MeteoSwiss** und die Luftfeuchtigkeitsprognose
 1. **Repository klonen oder herunterladen**
 
    ```bash
-   git clone https://github.com/IhrBenutzername/wettervorhersage.git
+   git clone https://github.com/rueetschli/wetter-bot.git
    ```
 
 2. **Zum Verzeichnis navigieren**
