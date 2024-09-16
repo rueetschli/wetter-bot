@@ -49,7 +49,7 @@ Das Skript ruft Wetterdaten von **MeteoSwiss** und die Luftfeuchtigkeitsprognose
 2. **Zum Verzeichnis navigieren**
 
    ```bash
-   cd wettervorhersage
+   cd wetter-bot
    ```
 
 ## Konfiguration
