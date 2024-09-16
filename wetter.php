@@ -4,11 +4,6 @@
 // Passwort für den Zugriff auf das Skript
 $zugriffspasswort = 'DeinPasswort';
 
-// Überprüfen, ob das korrekte Passwort übergeben wurde
-if (!isset($_GET['passwort']) || $_GET['passwort'] !== $zugriffspasswort) {
-    die('Zugriff verweigert.');
-}
-
 // OpenAI API-Schlüssel
 $openai_api_key = 'YOUR_OPENAI_API_KEY_HERE';
 
@@ -24,13 +19,18 @@ $twilio_whatsapp_number = 'whatsapp:+11111111';
 // WhatsApp-Nummer des Kindes
 $child_whatsapp_number = 'whatsapp:+41790000000';
 
+// Postleitzahl für MeteoSwiss
+$postal_code = '4522';
+
+// Koordinaten (Breitengrad und Längengrad) für Open-Meteo
+$latitude = '47.2305';
+$longitude = '7.5295';
+
 // Prompt für OpenAI
 $prompt = <<<EOT
-Erstelle mit untenstehender Wettervorhersage eine Nachricht für Luca. Luca geht mit dem Fahrrad zur Schule und deine Nachricht soll ihm helfen, was er anzuziehen hat. 
+Erstelle mit untenstehender Wettervorhersage eine Nachricht für "NAME DES KINDES". Er geht mit dem Fahrrad zur Schule und deine Nachricht soll ihm helfen, was er anzuziehen hat. 
 Je nach Wetter können das kurze Hosen oder bis zu gefütterten langen Hosen mit Regenschutz und Schal und Mütze und Handschuhe sein.
-
 Gib ihm als erstes einen Überblick, wie das Wetter um 08:00 Uhr, um 12:00 Uhr und um 16:00 Uhr ist. Berechne auch die gefühlte Temperatur anhand Wind, Sonneneinstrahlung und Luftfeuchtigkeit.
-
 Nutze anschließend 1-5 passende Emojis. Im JSON hast du unter anderem die Angabe "iconDay". Hier eine Auswahl an dazu passenden Emojis: 1=☀️, 10=🌨️, 101=🌟, 102=🌥️, 103=☁️, 104=☁️, 105=🌥️, 106=🌦️, 107=🌨️, 108=🌨️, 109=🌦️, 11=🌨️, 110=🌨️, 111=🌨️, 112=🌩️, 113=🌩️, 114=🌧️, 115=🌧️, 116=❄️, 117=🌧️, 118=🌨️, 119=❄️, 12=⛈️, 120=🌧️, 121=🌨️, 122=❄️, 123=🌩️, 124=🌩️, 125=⛈️, 126=☁️, 127=☁️, 128=🌫️, 129=🌦️, 13=⛈️, 130=❄️, 131=🌨️, 132=🌦️, 133=🌨️, 134=🌨️, 135=☁️, 14=🌧️, 15=🌧️, 16=❄️, 17=🌧️, 18=🌨️, 19=❄️, 2=🌤️, 20=🌧️, 21=🌨️, 22=❄️, 23=⛈️, 24=🌩️, 25=⛈️, 26=☁️, 27=☁️, 28=🌫️, 29=🌦️, 3=⛅, 30=❄️, 31=🌨️, 32=🌦️, 33=🌦️, 34=❄️, 35=☁️, 4=☁️, 5=🌥️, 6=🌦️, 7=🌨️, 8=❄️, 9=🌦️
 
 Anschließend kommen die Kleidertipps.
@@ -39,9 +39,14 @@ Beachte: Er geht mit dem Velo zur Schule, ein Regenschirm ist keine Option.
 Beachte: Nutze die daten von MeteoSwiss für die Vorhersage. Um die gefühlte Temperatur zu berechne, nutze zusätzlich die Luftfeuchtigkeit von Open-Meteo.
 Beachte: Im JSON hast du als erstes den Aktuellen Tag, anschliessend kommen die weiteren Tage. Es kann sein, dass ich dir auch Hinweise gebe, wie das Wetter gestern war. Nutze in diesem Fall diese Angaben auch.
 Beachte: Ich schicke anschliessend automatisch diese Nachricht mit Whatsapp. Nutze bitte entsprechende Formatierungen. Und die Grüsse kommen von "Papi"
-Beachte: Sollte im JSON das Feld "warnings" ausgefüllt sein, handelt es sich um einen Wetteralarm. Gib diesen dann aus, sollte dieser für Luca relevant sein. Gib auch einen ganz kurzen Ausblick auf den morgigen Tag, so im Stil von: Morgen wird es etwas wärmer.
+Beachte: Sollte im JSON das Feld "warnings" ausgefüllt sein, handelt es sich um einen Wetteralarm. Gib diesen dann aus, sollte dieser für ihn relevant sein. Gib auch einen ganz kurzen Ausblick auf den morgigen Tag, so im Stil von: Morgen wird es etwas wärmer.
 Am Ende kannst du noch ein tolles Zitat einfügen.
 EOT;
+
+// Überprüfen, ob das korrekte Passwort übergeben wurde
+if (!isset($_GET['passwort']) || $_GET['passwort'] !== $zugriffspasswort) {
+    die('Zugriff verweigert.');
+}
 
 // Ab hier beginnt das Skript
 
@@ -55,12 +60,12 @@ date_default_timezone_set('Europe/Zurich');
 $today = date('Y-m-d');
 
 // Wetterdaten von MeteoSwiss abrufen
-$weather_url = 'https://app-prod-ws.meteoswiss-app.ch/v1/plzDetail?plz=452200';
+$weather_url = 'https://app-prod-ws.meteoswiss-app.ch/v1/plzDetail?plz=' . $postal_code . '00';
 $weather_json = file_get_contents($weather_url);
 $weather_data = json_decode($weather_json, true);
 
 // Wetterdaten von Open-Meteo abrufen (für Luftfeuchtigkeit)
-$open_meteo_url = 'https://api.open-meteo.com/v1/forecast?latitude=47.2305&longitude=7.5295&hourly=temperature_2m,relative_humidity_2m,snowfall,snow_depth,visibility&past_days=1&forecast_days=1';
+$open_meteo_url = 'https://api.open-meteo.com/v1/forecast?latitude=' . $latitude . '&longitude=' . $longitude . '&hourly=temperature_2m,relative_humidity_2m,snowfall,snow_depth,visibility&past_days=1&forecast_days=1';
 $open_meteo_json = file_get_contents($open_meteo_url);
 $open_meteo_data = json_decode($open_meteo_json, true);
 
@@ -140,7 +145,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 ]);
 
 $post_fields = json_encode([
-    'model' => 'gpt-4o',
+    'model' => 'gpt-4',
     'messages' => [
         ['role' => 'system', 'content' => 'Du bist ein hilfreicher Assistent, der auf Deutsch schreibt. Du bist professioneller Meteorologe.'],
         ['role' => 'user', 'content' => $full_prompt],
