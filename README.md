@@ -138,10 +138,6 @@ php wetter.php passwort=IhrSicheresPasswort
 
 Dieses Projekt steht unter der [MIT Lizenz](LICENSE).
 
-## Kontakt
-
-Für Fragen oder Unterstützung kontaktieren Sie bitte [Ihr Name](mailto:ihre-email@example.com).
-
 ## Danksagung
 
 - [Open-Meteo](https://open-meteo.com/) für die Bereitstellung der Wetterdaten
@@ -276,9 +272,6 @@ php weather.php passwort=YourSecurePassword
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Contact
-
-For questions or support, please contact [Your Name](mailto:your-email@example.com).
 
 ## Acknowledgments
 
