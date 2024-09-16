@@ -18,7 +18,7 @@ Wetterdaten sind von MeteoSchweiz und OpenMeteo
 
 ## Beschreibung
 
-Das Skript ruft Wetterdaten von **MeteoSwiss** und **Open-Meteo** ab, verarbeitet diese und generiert eine Nachricht, die über die **Twilio WhatsApp API** an Luca gesendet wird. Die Nachricht enthält einen Überblick über das Wetter zu bestimmten Tageszeiten und gibt Kleidertipps basierend auf der gefühlten Temperatur, die Wind, Sonneneinstrahlung und Luftfeuchtigkeit berücksichtigt.
+Das Skript ruft Wetterdaten von **MeteoSwiss** und **Open-Meteo** ab, verarbeitet diese und generiert eine Nachricht, die über die **Twilio WhatsApp API** an dein Kind gesendet wird. Die Nachricht enthält einen Überblick über das Wetter zu bestimmten Tageszeiten und gibt Kleidertipps basierend auf der gefühlten Temperatur, die Wind, Sonneneinstrahlung und Luftfeuchtigkeit berücksichtigt.
 
 ## Funktionen
 
