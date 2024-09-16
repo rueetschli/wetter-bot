@@ -35,20 +35,20 @@ Das Skript ruft Wetterdaten von **MeteoSwiss** und **Open-Meteo** ab, verarbeite
 - **OpenAI API Key**
 - **Twilio Account SID** und **Auth Token**
 - **Twilio WhatsApp Nummer**
-- WhatsApp-Nummer des Empfängers (Luca)
+- WhatsApp-Nummer des Empfängers
 
 ## Installation
 
 1. **Repository klonen oder herunterladen**
 
    ```bash
-   git clone https://github.com/IhrBenutzername/wettervorhersage-luca.git
+   git clone https://github.com/IhrBenutzername/wettervorhersage.git
    ```
 
 2. **Zum Verzeichnis navigieren**
 
    ```bash
-   cd wettervorhersage-luca
+   cd wettervorhersage
    ```
 
 ## Konfiguration
@@ -152,9 +152,9 @@ Für Fragen oder Unterstützung kontaktieren Sie bitte [Ihr Name](mailto:ihre-em
 ![thumbnail_Bildschirmfoto 2024-09-16 um 14 02 06](https://github.com/user-attachments/assets/af1c0486-8314-4e7e-a1ce-2ef1ce0111cb)
 ---
 
-# Weather Forecast Script for Luca
+# Weather Forecast Script
 
-This PHP script creates a personalized weather forecast for Luca and sends him a message via WhatsApp with clothing tips based on the current weather conditions.
+This PHP script creates a personalized weather forecast and sends him a message via WhatsApp with clothing tips based on the current weather conditions.
 
 ## Table of Contents
 
@@ -171,7 +171,7 @@ This PHP script creates a personalized weather forecast for Luca and sends him a
 
 ## Description
 
-The script fetches weather data from **MeteoSwiss** and **Open-Meteo**, processes it, and generates a message that is sent to Luca via the **Twilio WhatsApp API**. The message includes an overview of the weather at specific times of the day and provides clothing tips based on the perceived temperature, which considers wind, solar radiation, and humidity.
+The script fetches weather data from **MeteoSwiss** and **Open-Meteo**, processes it, and generates a message that is sent via the **Twilio WhatsApp API**. The message includes an overview of the weather at specific times of the day and provides clothing tips based on the perceived temperature, which considers wind, solar radiation, and humidity.
 
 ## Features
 
@@ -188,25 +188,25 @@ The script fetches weather data from **MeteoSwiss** and **Open-Meteo**, processe
 - **OpenAI API Key**
 - **Twilio Account SID** and **Auth Token**
 - **Twilio WhatsApp Number**
-- Recipient's WhatsApp number (Luca)
+- Recipient's WhatsApp number 
 
 ## Installation
 
 1. **Clone or download the repository**
 
    ```bash
-   git clone https://github.com/YourUsername/weather-forecast-luca.git
+   git clone https://github.com/YourUsername/weather-forecast.git
    ```
 
 2. **Navigate to the directory**
 
    ```bash
-   cd weather-forecast-luca
+   cd weather-forecast
    ```
 
 ## Configuration
 
-Open the `weather_script.php` file and configure the following parameters at the beginning of the file:
+Open the `weather.php` file and configure the following parameters at the beginning of the file:
 
 ```php
 <?php
@@ -252,7 +252,7 @@ EOT;
 Access the script through your web browser and pass the password as a URL parameter:
 
 ```
-http://your-domain.com/weather_script.php?passwort=YourSecurePassword
+http://your-domain.com/weather.php?passwort=YourSecurePassword
 ```
 
 ### Via Command Line
@@ -260,7 +260,7 @@ http://your-domain.com/weather_script.php?passwort=YourSecurePassword
 Run the script from the command line:
 
 ```bash
-php weather_script.php passwort=YourSecurePassword
+php weather.php passwort=YourSecurePassword
 ```
 
 **Note:** Ensure that the script is located in the web server directory if you wish to access it via a browser.
