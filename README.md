@@ -1,4 +1,4 @@
-# Wettervorhersage-Skript für mit KI und WhatsApp
+# Was soll ich Anziehen-Wetter-Skript mit KI und WhatsApp
 
 Dieses PHP-Skript erstellt eine personalisierte Wettervorhersage für dein Kind und sendet ihm eine Nachricht über WhatsApp mit Kleidertipps basierend auf den aktuellen Wetterbedingungen.
 Wetterdaten sind von MeteoSchweiz und OpenMeteo
