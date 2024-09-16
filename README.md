@@ -27,6 +27,7 @@ Das Skript ruft Wetterdaten von **MeteoSwiss** und **Open-Meteo** ab, verarbeite
 - Generiert personalisierte Kleidertipps
 - Sendet die Nachricht automatisch über WhatsApp
 - Einfache Konfiguration und Anpassung
+- Relevante Wetteralarme von Meteo Schweiz sind integriert (Frost wegen Pflanzenschäden werden ignoriert, Schneestürme werden angezeigt)
 
 ## Voraussetzungen
 
